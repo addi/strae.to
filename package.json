@@ -1,0 +1,55 @@
+{
+  "name": "strae.to",
+  "version": "0.1.0",
+  "description": "A usable bus web",
+  "homepage": "http://strae.to",
+  "contributors": [
+    {
+      "name": "Hugi Hlynsson",
+      "email": "hugihlynsson@gmail.com",
+      "url": "http://hugihlynsson.com"
+    },
+    {
+      "name": "Árni Jónsson",
+      "email": "arni@arnij.com",
+      "url": "http://arnij.com"
+    },
+    {
+      "name": "Björn Elieser Jónsson",
+      "email": "efferite@gmail.com"
+    },
+    {
+      "name": "Sveinn Davíðsson",
+      "email": "s@keepitcomplicated.com",
+      "url": "http://keepitcomplicated.com"
+    }
+  ],
+  "dependencies": {
+    "react": "~0.11.0",
+    "react-tools": "~0.11.0",
+    "nib": "~1.0.3",
+    "es6-promise": "~1.0.0",
+    "jquery": "~2.1.1"
+  },
+  "devDependencies": {
+    "gulp": "~3.8.5",
+    "gulp-livereload": "~1.1.1",
+    "gulp-minify-css": "~0.3.0",
+    "gulp-notify": "~0.5.0",
+    "gulp-autoprefixer": "0.0.6",
+    "gulp-stylus": "~1.3.0",
+    "browserify": "~5.8.0",
+    "reactify": "~0.14.0",
+    "watchify": "~1.0.0",
+    "tiny-lr": "0.0.5",
+    "vinyl-source-stream": "~0.1.1",
+    "minimist": "~0.2.0",
+    "gulp-streamify": "0.0.5",
+    "gulp-if": "~1.2.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/addi/strae.to"
+  },
+  "private": true
+}
