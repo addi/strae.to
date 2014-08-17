@@ -1,6 +1,6 @@
 @import "source/normalize.css"
 
-$yellow = fade-out(#FFBE1A, 20%);
+$yellow = fade-out(#FFBE1A, 10%);
 
 afterclear()
   &::after
@@ -80,6 +80,9 @@ ul
     padding 0.2em 1em
     font-size 0.9em
     afterclear()
+
+    &:hover
+      background #F8F8F8
 
     .busstop-route-name
       float left
