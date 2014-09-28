@@ -9,7 +9,7 @@ var BusStations = React.createClass({
   render: function() {
 
     return (
-      <span className="loadingIndicator">{this.props.text}</span>
+      <span className="message loadingIndicator">{this.props.text}</span>
     );
   }
 

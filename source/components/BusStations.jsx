@@ -1,6 +1,4 @@
 var React = require('react');
-var $ = require('jquery');
-// var Promise = require('es6-promise');
 
 var BusStations = React.createClass({
 
@@ -30,7 +28,10 @@ var BusStations = React.createClass({
       return (
         <section className="busstop">
           <header className="busstop-header">
-            <h1 className="busstop-name">{stop.long_name}</h1>
+            <h1 className="busstop-name">
+              <span className="busstop-name-short">{stop.long_name}</span>
+              <span className="busstop-name-long">{stop.long_name}</span>
+            </h1>
             <span className="busstop-distance">{distance}</span>
           </header>
           <ul className="busstop-routes">

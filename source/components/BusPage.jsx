@@ -1,6 +1,6 @@
 var React = require('react');
-var $ = require('jquery');
 var Promise = require('es6-promise').Promise;
+var request = require('superagent');
 
 var BusStations = require('./BusStations');
 var LoadingIndicator = require('./LoadingIndicator');
@@ -15,7 +15,7 @@ var BusPage = React.createClass({
   },
 
   componentWillMount: function() {
-    this.getLocation().then(this.getStops);
+    this.getLocation().then(this.getStops).catch(this.handleNoLocation);
   },
 
   getLocation: function() {
@@ -34,31 +34,34 @@ var BusPage = React.createClass({
 
   getStops: function() {
     if (this.state.location) {
-      $.ajax({
-        type: 'GET',
-        url: 'http://api.strae.to/',
-        data: {
-          latitude: this.state.location.latitude,
-          longitude: this.state.location.longitude,
-          range: this.state.location.accuracy + 500,
-        },
-        dataType: 'json',
-      })
-        .done(data => {
-          console.log('Got stations', data);
-          this.setState({ stops: data });
-        })
-        .fail(xhr => {
+      request.get('http://api.strae.to/').query({
+        latitude: this.state.location.latitude,
+        longitude: this.state.location.longitude,
+        range: this.state.location.accuracy + 500,
+      }).on('error', this.handleDataError).end(res => {
+        if (!res.ok) {
           console.log('Failed to gather data from api.strae.to');
-        });
+          this.handleDataError();
+          return;
+        }
+        console.log('Got stations', res.body);
+        this.setState({ stops: res.body });
+      });
     }
-    else {
-      console.log('Could not gather stations because no location is available');
-    }
+  },
+
+  handleNoLocation: function() {
+    this.setState({ locationError: true });
+  },
+
+  handleDataError: function() {
+    this.setState({ dataError: true });
   },
 
   render: function() {
 
+    if (this.state.dataError) return <span className="message">Ekki tókst að sækja upplýsingar um strætóa. Prófaðu aftur seinna.</span>;
+    if (this.state.locationError) return <span className="message">Ekki tókst að sækja staðsetningu. Getur verið að þú hafir ekki leyft það?</span>;
     if (!this.state.location) return <LoadingIndicator text="Finn staðsetninguna þína" />;
     if (!this.state.stops.length) return <LoadingIndicator text="Finn næstu stöðvarnar" />;
 

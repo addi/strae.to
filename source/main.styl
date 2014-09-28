@@ -67,6 +67,9 @@ ul
       margin 0
       font-weight 600
 
+      .busstop-name-long
+        display none
+
     .busstop-distance
       float right
       font-size 0.8em
@@ -107,16 +110,19 @@ ul
 
 // Module LoadingIndicator
 
-.loadingIndicator
+.message
+  box-sizing border-box
   position fixed
+  top 50%
   left 0
   width 100%
-  top 50%
+  padding: 0 1em
   text-align center
   font-size 0.8em
   text-transform uppercase
   color #888
 
+.loadingIndicator
   &::after,
   &::before
     content ''
@@ -142,6 +148,13 @@ ul
     padding 0.5em
 
   .busstop
+    .busstop-header
+      .busstop-name
+        .busstop-name-short
+          display none
+        .busstop-name-long
+          display inline-block
+
     .busstop-route
       padding 0.3em 1em
 
