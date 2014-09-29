@@ -20532,7 +20532,7 @@ var BusPage = React.createClass({displayName: 'BusPage',
   getInitialState: function() {
     return {
       location: undefined,
-      stops: [],
+      stops: undefined,
     };
   },
 
@@ -20583,9 +20583,10 @@ var BusPage = React.createClass({displayName: 'BusPage',
   render: function() {
 
     if (this.state.dataError) return React.DOM.span({className: "message"}, "Ekki tókst að sækja upplýsingar um strætóa. Prófaðu aftur seinna.");
-    if (this.state.locationError) return React.DOM.span({className: "message"}, "Ekki tókst að sækja staðsetningu. Getur verið að þú hafir ekki leyft það?");
+    if (this.state.locationError) return React.DOM.span({className: "message"}, "Ekki tókst að sækja staðsetninguna þína. Getur verið að þú hafir ekki leyft það?");
     if (!this.state.location) return LoadingIndicator({text: "Finn staðsetninguna þína"});
-    if (!this.state.stops.length) return LoadingIndicator({text: "Finn næstu stöðvarnar"});
+    if (!this.state.stops) return LoadingIndicator({text: "Finn næstu stöðvarnar"});
+    if (!this.state.stops.length) return React.DOM.span({className: "message"}, "Engar stöðvar fundust í nágreninu sem eru með ferð á næstunni.");
 
     return (
       React.DOM.span(null, 
