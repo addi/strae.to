@@ -33,7 +33,7 @@ gulp.task('styles', function() {
         .pipe(minifycss())
         .pipe(gulp.dest('./'))
         .pipe(livereaload(server))
-        .pipe(notify({message: 'Styles task complete'}));
+        .pipe(notify('Styles task complete'));
 });
 
 
@@ -60,7 +60,7 @@ gulp.task('scripts', function() {
             }))))
             .pipe(gulp.dest('./'))
             .pipe(livereaload(server))
-            .pipe(notify({ message: 'Scripts task completed' }));
+            .pipe(notify('Scripts task completed'));
     };
 
     w.on('update', bundle);
