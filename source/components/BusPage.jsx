@@ -15,18 +15,25 @@ var BusPage = React.createClass({
   },
 
   componentWillMount: function() {
-    this.getLocation().then(this.getStops).catch(this.handleNoLocation);
+    
+    // Safari needs to get his/hers shit together before asking for geolocation permission
+    // http://stackoverflow.com/questions/27150465/geolocation-api-in-safari-8-and-7-1-keeps-asking-permission
+    var that = this;
+    setTimeout(function() {
+      that.getLocation().then(that.getStops).catch(that.handleNoLocation);
+    }, 10);
   },
 
   getLocation: function() {
-
     return new Promise((resolve, reject) => {
+
       if ('geolocation' in navigator) {
+        alert("lol 4");
         navigator.geolocation.getCurrentPosition(location => {
-          console.log(location);
-          this.setState({ location: location.coords });
-          resolve();
-        });
+            console.log(location);
+            this.setState({ location: location.coords });
+            resolve();
+          });
       }
       else reject(Error());
     });
