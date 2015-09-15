@@ -18,9 +18,8 @@ var BusPage = React.createClass({
     
     // Safari needs to get his/hers shit together before asking for geolocation permission
     // http://stackoverflow.com/questions/27150465/geolocation-api-in-safari-8-and-7-1-keeps-asking-permission
-    var that = this;
-    setTimeout(function() {
-      that.getLocation().then(that.getStops).catch(that.handleNoLocation);
+    setTimeout(() => {
+      this.getLocation().then(this.getStops).catch(this.handleNoLocation);
     }, 10);
   },
 
