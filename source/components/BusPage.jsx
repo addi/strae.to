@@ -26,14 +26,12 @@ var BusPage = React.createClass({
 
   getLocation: function() {
     return new Promise((resolve, reject) => {
-
       if ('geolocation' in navigator) {
-        alert("lol 4");
         navigator.geolocation.getCurrentPosition(location => {
-            console.log(location);
-            this.setState({ location: location.coords });
-            resolve();
-          });
+          console.log(location);
+          this.setState({ location: location.coords });
+          resolve();
+        });
       }
       else reject(Error());
     });
