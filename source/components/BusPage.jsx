@@ -11,16 +11,26 @@ var BusPage = React.createClass({
     return {
       location: undefined,
       stops: undefined,
+      didAskForLocation: localStorage.didAskForLocation
     };
   },
 
-  componentWillMount: function() {
-    
+  componentDidMount: function() {
     // Safari needs to get his/hers shit together before asking for geolocation permission
     // http://stackoverflow.com/questions/27150465/geolocation-api-in-safari-8-and-7-1-keeps-asking-permission
     setTimeout(() => {
       this.getLocation().then(this.getStops).catch(this.handleNoLocation);
-    }, 10);
+    }, 500);
+  },
+
+  requestLocation: function(event) {
+    event.preventDefault();
+
+    localStorage.didAskForLocation = true;
+
+    this.getLocation().then(this.getStops).catch(this.handleNoLocation);
+
+    this.setState({ didAskForLocation: true });
   },
 
   getLocation: function() {
@@ -66,6 +76,7 @@ var BusPage = React.createClass({
 
     if (this.state.dataError) return <span className="message">Ekki tókst að sækja upplýsingar um strætóa. Prófaðu aftur seinna.</span>;
     if (this.state.locationError) return <span className="message">Ekki tókst að sækja staðsetninguna þína. Getur verið að þú hafir ekki leyft það?</span>;
+    if (!this.state.didAskForLocation) return <span className="message">Stræ.to þarf að vita staðsetninguna þína til að finna stoppustöðvarnar í krinum þig. <br/><a href="#" onClick={(event) => this.requestLocation(event)}>Virkja staðsetningu</a></span>;
     if (!this.state.location) return <LoadingIndicator text="Finn staðsetninguna þína" />;
     if (!this.state.stops) return <LoadingIndicator text="Finn næstu stöðvarnar" />;
     if (!this.state.stops.length) return <span className="message">Engar stöðvar fundust í nágreninu sem eru með ferð á næstunni.</span>;
